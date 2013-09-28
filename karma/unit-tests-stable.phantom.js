@@ -1,24 +1,18 @@
-basePath = '..';
-
-files = [
-  JASMINE,
-  JASMINE_ADAPTER,
-  'components/jquery/jquery.js',
-  'components/angular/angular.js',
-  'components/angular-mocks/angular-mocks.js',
-  'tests/libraries/mocker.js',
-  '*.js',
-  'tests/*.js'
-];
-
-preprocessors = {
-  '**/*.js': 'coverage'
+module.exports = function(config) {
+  config.set({
+    autoWatch: false,
+    basePath: '..',
+    frameworks: ['jasmine'],
+    browsers: ['PhantomJS'],
+    singleRun: true,
+    preprocessors: {},
+    files: [
+      'components/jquery/jquery.js',
+      'components/unstable-angular-complete/angular.js',
+      'components/unstable-angular-complete/angular-mocks.js',
+      'tests/libraries/mocker.js',
+      '*.js',
+      'tests/*.js'
+    ]
+  });
 };
-
-reporters = ['dots', 'coverage'];
-
-autoWatch = false;
-
-browsers = ['PhantomJS'];
-
-singleRun = true;

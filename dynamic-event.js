@@ -1,3 +1,30 @@
+/**
+ * Dynamic Events.
+ *
+ * This provider a dynamic way to define events that AngularJS have built-in support for.  The events that are supported are:
+ *
+ * - click
+ * - dblclick
+ * - mousedown
+ * - mouseup
+ * - mouseover
+ * - mouseout
+ * - mousemove
+ * - mouseenter
+ * - mouseleave
+ *
+ * Instead of doing ```ng-[event]``` you just do ```nag-[event]```.
+ *
+ * Base off the value of ```clickEvent2Active```, a different function will be executed when the button is clicked:
+ *
+ * ```html
+ * <button nag-click="{'clickEvent1()': !clickEvent2Active, 'clickEvent2()': clickEvent2Active}">Button</button>
+ * ```
+ *
+ * @todo: upgrade to 1.2.0 version when 1.2.0 come out of RC
+ *
+ * @module nag.dynamicEvent
+ */
 (function() {
   var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
   var MOZ_HACK_REGEXP = /^moz([A-Z])/;
