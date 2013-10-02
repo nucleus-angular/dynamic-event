@@ -1,7 +1,7 @@
 /**
  * Dynamic Events.
  *
- * This provider a dynamic way to define events that AngularJS have built-in support for.  The events that are supported are:
+ * This provides a dynamic way to define events that AngularJS has built-in support for.  The events that are supported are:
  *
  * - click
  * - dblclick
@@ -21,9 +21,11 @@
  * <button nag-click="{'clickEvent1()': !clickEvent2Active, 'clickEvent2()': clickEvent2Active}">Button</button>
  * ```
  *
- * @todo: upgrade to 1.2.0 version when 1.2.0 come out of RC
+ * @todo: upgrade to 1.2.0 version
  *
  * @module nag.dynamicEvent
+ *
+ * @nghtmlattribute {expression} nag-[event name] Expression to determine functionality executed when event happens
  */
 (function() {
   var SPECIAL_CHARS_REGEXP = /([\:\-\_]+(.))/g;
