@@ -49,35 +49,49 @@
 
   var nagDynamicEventDirectives = {};
   angular.forEach(
-    'click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave'.split(' '),
+    'click dblclick mousedown mouseup mouseover mouseout mousemove mouseenter mouseleave keydown keyup keypress submit focus blur copy cut paste'.split(' '),
     function(name) {
       var directiveName = directiveNormalize('nag-' + name);
       nagDynamicEventDirectives[directiveName] = ['$parse', function($parse) {
-        return function(scope, element, attr) {
-          var fn = $parse(attr[directiveName]);
-          element.bind(lowercase(name), function(event) {
-            scope.$apply(function() {
-              var results = fn(scope, {$event:event});
+        return {
+          compile: function($element, attr) {
+            var fn = $parse(attr[directiveName]);
+            return function(scope, element, attr) {
+              element.on(lowercase(name), function(event) {
+                var processEventObject = function() {
+                  var results = fn(scope, {$event:event});
 
-              if(angular.isObject(results)) {
-                var trueFunction = null;
+                  if(angular.isObject(results)) {
+                    var trueFunction = null;
 
-                angular.forEach(results, function(check, newFunction) {
-                  if(check === true) {
-                    trueFunction = $parse(newFunction);
+                    angular.forEach(results, function(check, newFunction) {
+                      if(check === true) {
+                        trueFunction = $parse(newFunction);
+                      }
+                    });
+
+                    if(angular.isFunction(trueFunction)) {
+                      trueFunction(scope, {$event:event});
+                    }
                   }
-                });
-
-                if(angular.isFunction(trueFunction)) {
-                  trueFunction(scope, {$event:event});
+                };
+                //modification: to prevent $apply already in progress, might submit pull request to angular : https://github.com/angular/angular.js/issues/4947
+                if(scope.$root.$$phase) {
+                  processEventObject();
+                } else {
+                  scope.$apply(function() {
+                    processEventObject();
+                  });
                 }
-              }
-            });
-          });
+              });
+            };
+          }
         };
       }];
     }
   );
+
+  console.log(Object.keys(nagDynamicEventDirectives));
 
   angular.module('nag.dynamicEvent', [])
   .directive(nagDynamicEventDirectives);

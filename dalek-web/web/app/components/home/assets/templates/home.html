@@ -1,0 +1,5 @@
+<div class="home-page">
+  <div>Event Data: <span data-ut="event-data">{{ eventData }}</span></div>
+  <button nag-click="{'clickOne($event, 1)': clickEventOne, 'clickTwo($event, 2)': !clickEventOne}" data-ut="click">click</button>
+  <button ng-click="changeClickEvent()" data-ut="change-click">change click event</button>
+</div>
