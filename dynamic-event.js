@@ -91,8 +91,6 @@
     }
   );
 
-  console.log(Object.keys(nagDynamicEventDirectives));
-
   angular.module('nag.dynamicEvent', [])
   .directive(nagDynamicEventDirectives);
 }());
