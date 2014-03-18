@@ -12,6 +12,15 @@
  * - mousemove
  * - mouseenter
  * - mouseleave
+ * - keydown
+ * - keyup
+ * - keypress
+ * - submit
+ * - focus
+ * - blur
+ * - copy
+ * - cut
+ * - paste
  *
  * Instead of doing ```ng-[event]``` you just do ```nag-[event]```.
  *
